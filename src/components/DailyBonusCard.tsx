@@ -13,7 +13,7 @@ export default function DailyBonusCard() {
   const canClaim = !lastClaim || new Date().getDate() !== lastClaim.getDate();
 
   return (
-    <div className="card">
+    <div className="card p-4 sm:p-6 flex flex-col justify-between">
       <div className="flex items-center gap-2 mb-4">
         <Calendar className="text-pink-500" />
         <h2 className="text-xl font-bold">Daily Bonus</h2>
