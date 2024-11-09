@@ -2,6 +2,7 @@ import React from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { Home, ShoppingBag, BarChart2, Trophy } from 'lucide-react';
 import { motion } from 'framer-motion';
+import TonConnect from './TonConnect'; // Import the TonConnect component
 
 export default function Layout() {
   const location = useLocation();
@@ -15,15 +16,20 @@ export default function Layout() {
 
   return (
     <div className="min-h-screen pb-24">
+      {/* TonConnect Button for Mobile View */}
+      <div className="block md:hidden fixed bottom-16 right-4 z-50 p-4 bg-white/10 backdrop-blur-lg rounded-lg shadow-lg">
+        <TonConnect />
+      </div>
+
       <Outlet />
-      
+
       <motion.nav 
         initial={{ y: 100 }}
         animate={{ y: 0 }}
         className="fixed bottom-0 left-0 right-0 glass-effect border-t border-white/20"
       >
         <div className="container mx-auto px-4">
-          <div className="flex flex-row justify-around py-2"> {/* Changed to flex-row */}
+          <div className="flex flex-row justify-around py-2">
             {navItems.map(({ path, icon: Icon, label, color }) => (
               <Link
                 key={path}
@@ -39,4 +45,4 @@ export default function Layout() {
       </motion.nav>
     </div>
   );
-}
+                                       }
