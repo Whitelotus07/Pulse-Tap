@@ -68,24 +68,27 @@ export default function Game() {
         <Zap size={64} className="text-white relative z -10" />
       </motion.button>
 
-      {/* TonConnect Button for Mobile View */}
-      <div className="block md:hidden mb-4"> {/* Only show on mobile view */}
-        <TonConnect />
-      </div>
-
-      <motion.div 
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.2 }}
-        className="space-y-4"
-      >
-        {/* Responsive layout for cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <LevelCard />
-          <AutoTapCard />
+      {/* Add spacing between the pulse button and the cards */}
+      <div className="mt-8"> {/* Adjust margin-top for spacing */}
+        {/* TonConnect Button for Mobile View */}
+        <div className="block md:hidden mb-4"> {/* Only show on mobile view */}
+          <TonConnect />
         </div>
-        <DailyBonusCard />
-      </motion.div>
+
+        <motion.div 
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="space-y-4"
+        >
+          {/* Responsive layout for cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <LevelCard />
+            <AutoTapCard />
+          </div>
+          <DailyBonusCard />
+        </motion.div>
+      </div>
     </div>
   );
-}
+      }
