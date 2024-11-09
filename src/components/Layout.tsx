@@ -1,8 +1,9 @@
+// src/components/Layout.tsx
+
 import React from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import { Home, ShoppingBag, BarChart2, Trophy } from 'lucide-react';
+import { Home, ShoppingBag, BarChart2, Trophy, Wallet } from 'lucide-react'; // Import Wallet icon
 import { motion } from 'framer-motion';
-import TonConnect from './TonConnect'; // Import the TonConnect component
 
 export default function Layout() {
   const location = useLocation();
@@ -11,18 +12,14 @@ export default function Layout() {
     { path: '/game', icon: Home, label: 'Tap', color: 'text-pink-500' },
     { path: '/shop', icon: ShoppingBag, label: 'Shop', color: 'text-purple-500' },
     { path: '/stats', icon: BarChart2, label: 'Stats', color: 'text-blue-500' },
-    { path: '/leaderboard', icon: Trophy, label: 'Ranks', color: 'text-yellow-500' }
+    { path: '/leaderboard', icon: Trophy, label: 'Ranks', color: 'text-yellow-500' },
+    { path: '/connect-wallet', icon: Wallet, label: 'Connect Wallet', color: 'text-green-500' } // New nav item
   ];
 
   return (
     <div className="min-h-screen pb-24">
-      {/* TonConnect Button for Mobile View */}
-      <div className="block md:hidden fixed bottom-16 right-4 z-50 p-4 bg-white/10 backdrop-blur-lg rounded-lg shadow-lg">
-        <TonConnect />
-      </div>
-
       <Outlet />
-
+      
       <motion.nav 
         initial={{ y: 100 }}
         animate={{ y: 0 }}
@@ -45,4 +42,4 @@ export default function Layout() {
       </motion.nav>
     </div>
   );
-                                       }
+}
