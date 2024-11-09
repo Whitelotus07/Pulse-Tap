@@ -5,7 +5,8 @@ import { Zap, Coins } from 'lucide-react';
 import DailyBonusCard from '../components/DailyBonusCard';
 import LevelCard from '../components/LevelCard';
 import AutoTapCard from '../components/AutoTapCard';
-import TonConnect from '../components/TonConnect'; // Import the TonConnect component
+// Remove the TonConnect import
+// import TonConnect from '../components/TonConnect'; // Import the TonConnect component
 
 export default function Game() {
   const { 
@@ -70,11 +71,6 @@ export default function Game() {
 
       {/* Add spacing between the pulse button and the cards */}
       <div className="mt-8"> {/* Adjust margin-top for spacing */}
-        {/* TonConnect Button for Mobile View */}
-        <div className="block md:hidden mb-4"> {/* Only show on mobile view */}
-          <TonConnect />
-        </div>
-
         <motion.div 
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -91,4 +87,4 @@ export default function Game() {
       </div>
     </div>
   );
-      }
+}
