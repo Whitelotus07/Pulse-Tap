@@ -73,7 +73,7 @@ export default function Game() {
         transition={{ delay: 0.2 }}
         className="space-y-4"
       >
-        {/* Use responsive classes to change layout based on screen size */}
+        {/* Responsive layout for cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <LevelCard />
           <AutoTapCard />
