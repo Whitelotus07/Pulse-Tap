@@ -15,6 +15,7 @@ export default function Layout() {
 
   return (
     <div className="min-h-screen pb-24">
+      {/* Render the matched child route */}
       <Outlet />
       
       <motion.nav 
@@ -39,4 +40,4 @@ export default function Layout() {
       </motion.nav>
     </div>
   );
-}
+        }
