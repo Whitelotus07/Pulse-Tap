@@ -1,11 +1,16 @@
 import TelegramBot from 'node-telegram-bot-api';
-import { db } from '../lib/firebase';
-import { doc, getDoc, updateDoc, setDoc } from 'firebase/firestore';
+import { db } from '../lib/firebase'; // Adjust the path as necessary
+import { doc, getDoc, setDoc } from 'firebase/firestore';
+import dotenv from 'dotenv';
 
-// Directly assign your Telegram bot token here
+// Load environment variables from .env file
+dotenv.config();
+
+// Directly assign your Telegram bot token here (for testing purposes only)
 const token = '7605552178:AAGyBtgm-up6Yzzn1lLzsP_hqYgZUvZrudc';
 const bot = new TelegramBot(token, { polling: true });
 
+// Command: /start
 bot.onText(/\/start/, async (msg) => {
   const chatId = msg.chat.id;
   const username = msg.from.username;
@@ -26,10 +31,11 @@ bot.onText(/\/start/, async (msg) => {
     );
   } catch (error) {
     console.error('Error in /start:', error);
-    bot.sendMessage(chatId, '❌ Error starting bot. Please try again later.');
+    bot.sendMessage(chatId, '❌ There was an issue starting the bot. Please try again later.');
   }
 });
 
+// Command: /leaderboard
 bot.onText(/\/leaderboard/, async (msg) => {
   const chatId = msg.chat.id;
   
@@ -60,6 +66,7 @@ bot.onText(/\/leaderboard/, async (msg) => {
   }
 });
 
+// Command: /stats
 bot.onText(/\/stats/, async (msg) => {
   const chatId = msg.chat.id;
   
@@ -91,4 +98,12 @@ bot.onText(/\/stats/, async (msg) => {
   }
 });
 
-export default bot;
+// Command: /link
+bot.onText(/\/link/, async (msg) => {
+  const chatId = msg.chat.id;
+  // Here you would implement the logic to link the user's game account
+  bot.sendMessage(chatId, '🔗 Please provide your game account ID to link your account.');
+});
+
+// Start the bot
+console.log('Telegram bot is running...');
