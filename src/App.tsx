@@ -17,11 +17,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Loading />} />
           <Route element={<Layout />}>
-            {/* Render TonConnect inside Layout to ensure it appears above tabs */}
-            <Route path="/game" element={<><TonConnect /><Game /></>} />
-            <Route path="/stats" element={<><TonConnect /><Stats /></>} />
-            <Route path="/shop" element={<><TonConnect /><Shop /></>} />
-            <Route path="/leaderboard" element={<><TonConnect /><Leaderboard /></>} />
+            <Route path="/game" element={<Game />} />
+            <Route path="/stats" element={<Stats />} />
+            <Route path="/shop" element={<Shop />} />
+            <Route path="/leaderboard" element={<Leaderboard />} />
           </Route>
         </Routes>
       </BrowserRouter>
