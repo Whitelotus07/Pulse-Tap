@@ -1,3 +1,5 @@
+// src/App.tsx
+
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
@@ -8,6 +10,7 @@ import Stats from './pages/Stats';
 import Shop from './pages/Shop';
 import Leaderboard from './pages/Leaderboard';
 import Layout from './components/Layout';
+import ConnectWallet from './pages/ConnectWallet'; // Import the new ConnectWallet page
 
 function App() {
   return (
@@ -17,6 +20,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Loading />} />
           <Route element={<Layout />}>
+            <Route path="/connect-wallet" element={<ConnectWallet />} /> {/* New route for Connect Wallet */}
             <Route path="/game" element={<Game />} />
             <Route path="/stats" element={<Stats />} />
             <Route path="/shop" element={<Shop />} />
