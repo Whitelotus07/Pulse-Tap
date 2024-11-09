@@ -5,6 +5,7 @@ import { Zap, Coins } from 'lucide-react';
 import DailyBonusCard from '../components/DailyBonusCard';
 import LevelCard from '../components/LevelCard';
 import AutoTapCard from '../components/AutoTapCard';
+import TonConnect from '../components/TonConnect'; // Import the TonConnect component
 
 export default function Game() {
   const { 
@@ -62,10 +63,15 @@ export default function Game() {
       <motion.button
         whileTap={{ scale: 0.95 }}
         onClick={handleTap}
-        className="tap-button mx-auto mb-8 w-full max-w-md" // Full width and max width for mobile
+        className="tap-button mx-auto mb-4 w-full max-w-md" // Full width and max width for mobile
       >
         <Zap size={64} className="text-white relative z-10" />
       </motion.button>
+
+      {/* TonConnect Button for Mobile View */}
+      <div className="block md:hidden mb-4"> {/* Only show on mobile view */}
+        <TonConnect />
+      </div>
 
       <motion.div 
         initial={{ y: 20, opacity: 0 }}
@@ -82,4 +88,4 @@ export default function Game() {
       </motion.div>
     </div>
   );
-      }
+        }
