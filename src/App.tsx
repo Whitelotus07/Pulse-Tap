@@ -8,21 +8,20 @@ import Stats from './pages/Stats';
 import Shop from './pages/Shop';
 import Leaderboard from './pages/Leaderboard';
 import Layout from './components/Layout';
-import TonConnect from './components/TonConnect';
 
 function App() {
   return (
     <TonConnectUIProvider manifestUrl="https://ton-connect.github.io/demo-dapp-with-react-ui/tonconnect-manifest.json">
       <BrowserRouter>
         <Toaster position="top-center" />
-        <TonConnect />
         <Routes>
           <Route path="/" element={<Loading />} />
           <Route element={<Layout />}>
-            <Route path="/game" element={<Game />} />
-            <Route path="/stats" element={<Stats />} />
-            <Route path="/shop" element={<Shop />} />
-            <Route path="/leaderboard" element={<Leaderboard />} />
+            {/* Render TonConnect inside Layout to ensure it appears above tabs */}
+            <Route path="/game" element={<><TonConnect /><Game /></>} />
+            <Route path="/stats" element={<><TonConnect /><Stats /></>} />
+            <Route path="/shop" element={<><TonConnect /><Shop /></>} />
+            <Route path="/leaderboard" element={<><TonConnect /><Leaderboard /></>} />
           </Route>
         </Routes>
       </BrowserRouter>
