@@ -23,12 +23,12 @@ export default function Layout() {
         className="fixed bottom-0 left-0 right-0 glass-effect border-t border-white/20"
       >
         <div className="container mx-auto px-4">
-          <div className="flex justify-around py-2">
+          <div className="flex flex-col sm:flex-row justify-around py-2">
             {navItems.map(({ path, icon: Icon, label, color }) => (
               <Link
                 key={path}
                 to={path}
-                className={`nav-item ${location.pathname === path ? 'active' : 'text-white/60'}`}
+                className={`nav-item ${location.pathname === path ? 'active' : 'text-white/60'} py-2`}
               >
                 <Icon size={24} className={location.pathname === path ? color : ''} />
                 <span className="text-xs">{label}</span>
