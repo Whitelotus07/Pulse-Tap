@@ -35,7 +35,7 @@ export default function LevelCard() {
   };
 
   return (
-    <div className="card">
+    <div className="card p-4 sm:p-6 flex flex-col justify-between">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <Trophy className="text-yellow-400" />
