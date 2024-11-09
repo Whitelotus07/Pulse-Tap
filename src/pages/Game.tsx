@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useGameStore } from '../store/gameStore';
 import { Zap, Coins } from 'lucide-react';
-import Confetti from 'react-confetti';
 import DailyBonusCard from '../components/DailyBonusCard';
 import LevelCard from '../components/LevelCard';
 import AutoTapCard from '../components/AutoTapCard';
@@ -63,7 +62,7 @@ export default function Game() {
       <motion.button
         whileTap={{ scale: 0.95 }}
         onClick={handleTap}
-        className="tap-button mx-auto mb-8"
+        className="tap-button mx-auto mb-8 w-full max-w-md" // Full width and max width for mobile
       >
         <Zap size={64} className="text-white relative z-10" />
       </motion.button>
@@ -74,10 +73,13 @@ export default function Game() {
         transition={{ delay: 0.2 }}
         className="space-y-4"
       >
-        <LevelCard />
-        <AutoTapCard />
+        {/* Use responsive classes to change layout based on screen size */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <LevelCard />
+          <AutoTapCard />
+        </div>
         <DailyBonusCard />
       </motion.div>
     </div>
   );
-}
+      }
