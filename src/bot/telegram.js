@@ -2,7 +2,8 @@ import TelegramBot from 'node-telegram-bot-api';
 import { db } from '../lib/firebase';
 import { doc, getDoc, updateDoc, setDoc } from 'firebase/firestore';
 
-const token = process.env.TELEGRAM_BOT_TOKEN;
+// Directly assign your Telegram bot token here
+const token = '7605552178:AAGyBtgm-up6Yzzn1lLzsP_hqYgZUvZrudc';
 const bot = new TelegramBot(token, { polling: true });
 
 bot.onText(/\/start/, async (msg) => {
