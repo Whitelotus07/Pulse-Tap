@@ -29,9 +29,9 @@ export default function TonConnect() {
   }, []);
 
   return (
-    <div className="fixed top-4 right-4 z-50 p-2 bg-white/10 backdrop-blur-lg rounded-lg shadow-lg">
-      <TonConnectButton className="w-20 h-8 text-xs" /> {/* Very small size for mobile */}
-      <div className="mt-1 text-xs text-gray-400 text-right">
+    <div className="fixed top-4 right-4 z-50 p-2 bg-white/10 backdrop-blur-lg rounded-lg shadow-lg flex flex-col items-center">
+      <TonConnectButton className="w-10 h-10 text-xs" /> {/* Small button size */}
+      <div className="mt-1 text-xs text-gray-400 text-center">
         {isConnected ? 'Connected' : 'Connect Wallet'}
       </div>
     </div>
