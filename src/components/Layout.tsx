@@ -42,4 +42,4 @@ export default function Layout() {
       </motion.nav>
     </div>
   );
-}
+        }
