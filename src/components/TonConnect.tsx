@@ -29,10 +29,10 @@ export default function TonConnect() {
   }, []);
 
   return (
-    <div className="fixed top-4 right-4 z-50 p-2 bg-white/10 backdrop-blur-lg rounded-lg shadow-lg flex flex-col items-center">
-      <TonConnectButton className="w-10 h-10 text-xs" /> {/* Small button size */}
-      <div className="mt-1 text-xs text-gray-400 text-center">
-        {isConnected ? 'Connected' : 'Connect Wallet'}
+    <div className="fixed bottom-4 right-4 z-50 p-4 bg-white/10 backdrop-blur-lg rounded-lg shadow-lg">
+      <TonConnectButton className="w-full sm:w-auto" /> {/* Responsive width */}
+      <div className="mt-2 text-sm text-gray-400 text-right">
+        {isConnected ? 'Wallet connected!' : 'Connect wallet to unlock features'}
       </div>
     </div>
   );
