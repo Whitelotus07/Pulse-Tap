@@ -33,13 +33,13 @@ export default function AutoTapCard() {
   };
 
   return (
-    <div className="card">
+    <div className="card p-4 sm:p-6 flex flex-col">
       <div className="flex items-center gap-2 mb-4">
         <Zap className="text-yellow-400" />
         <h2 className="text-xl font-bold">Auto Tap</h2>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-4 flex-grow">
         {isActive ? (
           <div className="flex items-center gap-2 text-green-400">
             <Clock size={20} />
