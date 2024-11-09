@@ -16,8 +16,8 @@ export default function TonConnect() {
   }, [connected]);
 
   return (
-    <div className="fixed top-4 right-4 z-50">
-      <TonConnectButton />
+    <div className="fixed top-4 right-4 z-50 p-4 bg-white/10 backdrop-blur-lg rounded-lg shadow-lg">
+      <TonConnectButton className="w-full" />
       <div className="mt-2 text-sm text-gray-400 text-right">
         {isConnected ? 'Wallet connected!' : 'Connect wallet to unlock features'}
       </div>
