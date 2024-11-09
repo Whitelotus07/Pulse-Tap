@@ -19,6 +19,7 @@ export default function Game() {
     checkPulseReminder
   } = useGameStore();
 
+  // Income calculation effect
   useEffect(() => {
     const interval = setInterval(() => {
       const incomePerHour = calculateIncomePerHour();
@@ -30,12 +31,14 @@ export default function Game() {
     return () => clearInterval(interval);
   }, [addCoins, calculateIncomePerHour]);
 
+  // Pulse reminder effect
   useEffect(() => {
     checkPulseReminder();
     const interval = setInterval(checkPulseReminder, 3600000);
     return () => clearInterval(interval);
   }, [checkPulseReminder]);
 
+  // Handle tap action
   const handleTap = () => {
     addCoins(tapPower);
     incrementTaps();
@@ -88,4 +91,4 @@ export default function Game() {
       </motion.div>
     </div>
   );
-        }
+}
