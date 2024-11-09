@@ -19,7 +19,6 @@ export default function Game() {
     checkPulseReminder
   } = useGameStore();
 
-  // Income calculation effect
   useEffect(() => {
     const interval = setInterval(() => {
       const incomePerHour = calculateIncomePerHour();
@@ -31,14 +30,12 @@ export default function Game() {
     return () => clearInterval(interval);
   }, [addCoins, calculateIncomePerHour]);
 
-  // Pulse reminder effect
   useEffect(() => {
     checkPulseReminder();
     const interval = setInterval(checkPulseReminder, 3600000);
     return () => clearInterval(interval);
   }, [checkPulseReminder]);
 
-  // Handle tap action
   const handleTap = () => {
     addCoins(tapPower);
     incrementTaps();
@@ -66,9 +63,9 @@ export default function Game() {
       <motion.button
         whileTap={{ scale: 0.95 }}
         onClick={handleTap}
-        className="tap-button mx-auto mb-4 w-full max-w-md" // Full width and max width for mobile
+        className="tap-button mx-auto mb-4 w-48 h-48 rounded-full bg-gradient-to-r from-pink-600 to-purple-600 flex items-center justify-center shadow-lg hover:shadow-pink-500/25 transition-all duration-200"
       >
-        <Zap size={64} className="text-white relative z-10" />
+        <Zap size={64} className="text-white relative z -10" />
       </motion.button>
 
       {/* TonConnect Button for Mobile View */}
