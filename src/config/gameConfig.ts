@@ -1,7 +1,7 @@
 export const LEVELS = [
   { id: 0, name: "Beginner", requiredTaps: 0, bonus: 0, icon: "🌱", baseIncome: 1, skipPrice: 1 },
-  { id: 1, name: "Novice", requiredTaps: 1000, bonus: 1000, icon: "⚡", baseIncome: 10, skipPrice: 2 },
-  { id: 2, name: "Apprentice", requiredTaps: 10000, bonus: 10000, icon: "🔥", baseIncome: 100, skipPrice: 3 },
+  { id: 1, name: "Novice", requiredTaps: 1000, bonus: 1000, icon: "⚡", baseIncome: 10, skipPrice: 7 },
+  { id: 2, name: "Apprentice", requiredTaps: 10000, bonus: 10000, icon: "🔥", baseIncome: 100, skipPrice: 10 },
   { id: 3, name: "Expert", requiredTaps: 100000, bonus: 100000, icon: "💫", baseIncome: 1000},
   { id: 4, name: "Master", requiredTaps: 1000000, bonus: 1000000, icon: "🌟", baseIncome: 10000},
   { id: 5, name: "Grand Master", requiredTaps: 10000000, bonus: 10000000, icon: "👑", baseIncome: 100000},
@@ -12,7 +12,7 @@ export const LEVELS = [
 ];
 
 export const TON_WALLET = "UQC7JxkjGCWm99IUZGknnU_ctGNkngboRyfalkRPPMV-34M0";
-export const AUTO_TAP_PRICE_TON = 1; // 5 TON for auto-tap
+export const AUTO_TAP_PRICE_TON = 1; // 1 TON for auto-tap
 
 export const DAILY_BONUSES = Array.from({ length: 30 }, (_, i) => ({
   day: i + 1,
