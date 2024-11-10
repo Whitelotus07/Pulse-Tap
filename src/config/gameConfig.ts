@@ -16,7 +16,7 @@ export const AUTO_TAP_PRICE_TON = 1; // 1 TON for auto-tap
 
 export const DAILY_BONUSES = Array.from({ length: 30 }, (_, i) => ({
   day: i + 1,
-  amount: Math.floor(100 * Math.pow(1.1, i))
+  amount: Math.floor(50 * Math.pow(1.1, i))
 }));
 
 export const SOCIAL_TASKS = [
