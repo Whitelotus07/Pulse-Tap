@@ -113,4 +113,4 @@ export function updateGameState(state: GameState, newTotalTaps: number, currentL
   };
 
   return { ...state, ...updates };
-      }
+}
