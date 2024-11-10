@@ -24,9 +24,9 @@ export default function Game() {
     const interval = setInterval(() => {
       const incomePerHour = calculateIncomePerHour();
       if (incomePerHour > 0) {
-        addCoins(incomePerHour / 3600);
+        addCoins(incomePerHour / 1);
       }
-    }, 1000);
+    }, 10);
 
     return () => clearInterval(interval);
   }, [addCoins, calculateIncomePerHour]);
