@@ -1,3 +1,4 @@
+// Constants for game levels
 export const LEVELS = [
   { id: 0, name: "Beginner", requiredTaps: 0, bonus: 0, icon: "🌱", baseIncome: 1, skipPrice: 1 },
   { id: 1, name: "Novice", requiredTaps: 1000, bonus: 1000, icon: "⚡", baseIncome: 10, skipPrice: 7 },
@@ -11,14 +12,17 @@ export const LEVELS = [
   { id: 9, name: "Immortal", requiredTaps: 90000000000, bonus: 90000000000, icon: "🌌", baseIncome: 1000000000 }
 ];
 
+// Wallet and auto-tap configuration
 export const TON_WALLET = "UQC7JxkjGCWm99IUZGknnU_ctGNkngboRyfalkRPPMV-34M0";
 export const AUTO_TAP_PRICE_TON = 1; // 1 TON for auto-tap
 
+// Daily bonuses
 export const DAILY_BONUSES = Array.from({ length: 30 }, (_, i) => ({
   day: i + 1,
   amount: Math.floor(50 * Math.pow(1.1, i))
 }));
 
+// Social tasks
 export const SOCIAL_TASKS = [
   {
     id: "telegram",
@@ -50,6 +54,7 @@ export const SOCIAL_TASKS = [
   }
 ];
 
+// Daily videos
 export const DAILY_VIDEOS = [
   {
     id: "video1",
@@ -71,16 +76,41 @@ export const DAILY_VIDEOS = [
   }
 ];
 
+// Auto-tap configuration
 export const AUTO_TAP_CONFIG = {
   tapsPerSecond: 1,
   durationHours: 24
 };
 
+// Activity multipliers
 export const ACTIVITY_MULTIPLIERS = {
   TAP: 1.0,
   DAILY_BONUS: 1.1,
-  VIDEO_WATCH: 1.1,
-  SOCIAL_TASK: 1.1,
-  LEVEL_UP: 1.1,
-  AUTO_TAP: 1.0
+  VIDEO_WATCH: 1.2,
+  SOCIAL_TASK: 1.5
 };
+
+// Game state interface
+export interface GameState {
+  totalTaps: number;
+  incomeMultiplier: number;
+  baseIncomePerHour: number;
+}
+
+// Initial game state
+export const initialState: GameState = {
+  totalTaps: 0,
+  incomeMultiplier: 1,
+  baseIncomePerHour: 0
+};
+
+// Function to update game state
+export function updateGameState(state: GameState, newTotalTaps: number, currentLevel: any): GameState {
+  let updates: Partial<GameState> = {
+    totalTaps: newTotalTaps,
+    incomeMultiplier: state.incomeMultiplier * ACTIVITY_MULTIPLIERS.TAP,
+    baseIncomePerHour: currentLevel.baseIncome
+  };
+
+  return { ...state, ...updates };
+}
