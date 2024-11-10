@@ -24,7 +24,7 @@ interface GameState {
   dailyVideos: Array<typeof DAILY_VIDEOS[0] & { completed: boolean }>;
   socialTasksCompleted: string[];
   autoTapEndTime: string | null;
-  
+
   // Actions
   addCoins: (amount: number) => void;
   removeCoins: (amount: number) => void;
@@ -64,17 +64,17 @@ const useGameStore = create<GameState>()(
       }),
 
       removeCoins: (amount) => set((state) => ({
-        coins: state.coins - amount
+        coins: Math.max(0, state.coins - amount) // Prevent negative coins
       })),
 
       incrementTaps: () => set((state) => {
         const newTotalTaps = state.totalTaps + 1;
         const currentLevel = LEVELS[state.level];
         const nextLevel = LEVELS[state.level + 1];
-        
+
         let updates: Partial<GameState> = {
           totalTaps: newTotalTaps,
-          incomeMultiplier: state.incomeMultiplier * ACTIVITY_MULTIPLIERS.TAP,
+          incomeMultiplier: state.incomeMultiplier * ACTIVITY _MULTIPLIERS.TAP,
           baseIncomePerHour: currentLevel.baseIncome
         };
 
@@ -126,7 +126,7 @@ const useGameStore = create<GameState>()(
           return {
             coins: state.coins + bonus.amount,
             lastDailyBonus: now.toISOString(),
-            currentDay: state.currentDay + 1
+            currentDay: state.currentDay + 1 > DAILY_BONUSES.length ? 1 : state.currentDay + 1 // Reset to day 1 if at the end
           };
         }
 
