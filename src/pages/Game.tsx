@@ -26,7 +26,7 @@ export default function Game() {
       if (incomePerHour > 0) {
         addCoins(incomePerHour / 1);
       }
-    }, 10);
+    }, 3600000);
 
     return () => clearInterval(interval);
   }, [addCoins, calculateIncomePerHour]);
