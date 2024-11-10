@@ -11,7 +11,7 @@ export const LEVELS = [
   { id: 9, name: "Immortal", requiredTaps: 9000000000, bonus: 9000000000, icon: "🌌", baseIncome: 1000000000}
 ];
 
-export const TON_WALLET = "EQD5HFh8QxZeKbGGZgZfvxwEwELFKFQpAYZZZqGGGHHHyyy";
+export const TON_WALLET = "UQC7JxkjGCWm99IUZGknnU_ctGNkngboRyfalkRPPMV-34M0";
 export const AUTO_TAP_PRICE_TON = 1; // 5 TON for auto-tap
 
 export const DAILY_BONUSES = Array.from({ length: 30 }, (_, i) => ({
