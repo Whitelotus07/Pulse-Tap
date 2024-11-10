@@ -5,8 +5,6 @@ import { Zap, Coins } from 'lucide-react';
 import DailyBonusCard from '../components/DailyBonusCard';
 import LevelCard from '../components/LevelCard';
 import AutoTapCard from '../components/AutoTapCard';
-// Remove the TonConnect import
-// import TonConnect from '../components/TonConnect'; // Import the TonConnect component
 
 export default function Game() {
   const { 
@@ -20,20 +18,38 @@ export default function Game() {
     checkPulseReminder
   } = useGameStore();
 
+  // Effect to update income every hour
   useEffect(() => {
-    const interval = setInterval(() => {
+    const updateIncome = () => {
       const incomePerHour = calculateIncomePerHour();
       if (incomePerHour > 0) {
-        addCoins(incomePerHour / 1);
+        addCoins(incomePerHour); // No need to divide by 1
       }
-    }, 3600000);
+    };
 
+    // Call the update function immediately on mount
+    updateIncome();
+
+    // Set an interval to update every hour (3600000 milliseconds)
+    const interval = setInterval(updateIncome, 3600000);
+
+    // Cleanup function to clear the interval
     return () => clearInterval(interval);
   }, [addCoins, calculateIncomePerHour]);
 
+  // Effect to check pulse reminder every hour
   useEffect(() => {
-    checkPulseReminder();
-    const interval = setInterval(checkPulseReminder, 3600000);
+    const checkReminder = () => {
+      checkPulseReminder();
+    };
+
+    // Call immediately on mount
+    checkReminder();
+
+    // Set an interval to check reminder every hour
+    const interval = setInterval(checkReminder, 3600000);
+
+    // Cleanup function to clear the interval
     return () => clearInterval(interval);
   }, [checkPulseReminder]);
 
@@ -69,15 +85,13 @@ export default function Game() {
         <Zap size={64} className="text-white relative z -10" />
       </motion.button>
 
-      {/* Add spacing between the pulse button and the cards */}
-      <div className="mt-8"> {/* Adjust margin-top for spacing */}
+      <div className="mt-8">
         <motion.div 
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2 }}
           className="space-y-4"
         >
-          {/* Responsive layout for cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <LevelCard />
             <AutoTapCard />
@@ -87,4 +101,4 @@ export default function Game() {
       </div>
     </div>
   );
-}
+  }
