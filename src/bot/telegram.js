@@ -7,7 +7,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 // Directly assign your Telegram bot token here (for testing purposes only)
-const token = '7605552178:AAGyBtgm-up6Yzzn1lLzsP_hqYgZUvZrudc';
+const token = '7605552178:AAGyBtgm-up6Yzzn1lLzsP_hqYgZUvZrudc'; // Your bot token
 const bot = new TelegramBot(token, { polling: true });
 
 // Command: /start
@@ -16,18 +16,33 @@ bot.onText(/\/start/, async (msg) => {
   const username = msg.from.username;
 
   try {
-    await setDoc(doc(db, 'telegram_users', String(chatId)), {
-      username,
-      chatId,
-      lastInteraction: new Date().toISOString()
-    });
+    // Check if the user already exists in the database
+    const userRef = doc(db, 'telegram_users', String(chatId));
+    const userDoc = await getDoc(userRef);
+    let gameId;
+
+    if (!userDoc.exists()) {
+      // If the user does not exist, create a new game account ID
+      gameId = `game_${chatId}`; // Example of generating a game ID based on chat ID
+      await setDoc(userRef, {
+        username,
+        chatId,
+        lastInteraction: new Date().toISOString(),
+        gameId // Store the generated game ID
+      });
+    } else {
+      // If the user exists, retrieve the existing game account ID
+      const userData = userDoc.data();
+      gameId = userData.gameId;
+    }
 
     bot.sendMessage(chatId, 
       `🎮 Welcome to Pulse Tap Bot!\n\nCommands:\n` +
       `/stats - View your game stats\n` +
       `/leaderboard - View global leaderboard\n` +
       `/daily - Claim daily bonus\n` +
-      `/link - Link your game account`
+      `/link - Link your game account\n` +
+      `Your game account ID is: ${gameId}` // Inform the user of their game ID
     );
   } catch (error) {
     console.error('Error in /start:', error);
