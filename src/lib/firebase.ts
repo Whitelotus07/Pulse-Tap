@@ -9,8 +9,7 @@ const firebaseConfig = {
   projectId: "pulse-tap",
   storageBucket: "pulse-tap.appspot.com",
   messagingSenderId: "362721898715",
-  appId: "1:362721898715:web:0b4fee0f30706edb879cfe",
-  measurementId: "G-5S6R1HKJD5"
+  appId: "1:362721898715:web:0b4fee0f30706edb879cfe"
 };
 
 const app = initializeApp(firebaseConfig);
