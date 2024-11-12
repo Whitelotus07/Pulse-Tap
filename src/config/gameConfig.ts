@@ -86,7 +86,7 @@ export const AUTO_TAP_CONFIG = {
 export const ACTIVITY_MULTIPLIERS = {
   TAP: 1.0,
   DAILY_BONUS: 1.1,
-  VIDEO_WATCH: 1.2,
+  VIDEO_W ATCH: 1.2,
   SOCIAL_TASK: 1.5
 };
 
@@ -95,13 +95,17 @@ export interface GameState {
   totalTaps: number;
   incomeMultiplier: number;
   baseIncomePerHour: number;
+  coins: number; // Added coins to the GameState
+  level: number; // Added level to the GameState
 }
 
 // Initial game state
 export const initialState: GameState = {
   totalTaps: 0,
   incomeMultiplier: 1,
-  baseIncomePerHour: 0
+  baseIncomePerHour: 0,
+  coins: 0, // Initialize coins
+  level: 0 // Initialize level
 };
 
 // Function to update game state
@@ -114,3 +118,58 @@ export function updateGameState(state: GameState, newTotalTaps: number, currentL
 
   return { ...state, ...updates };
 }
+
+// Skip prices for levels 1 to 3 in TON
+export const SKIP_PRICES_TON = [0, 1, 2, 3]; // Prices for levels 0, 1, 2, and 3 respectively in TON
+
+// Function to skip levels
+export const skipLevel = () => set(async (state: GameState) => {
+  const nextLevel = LEVELS[state.level + 1];
+  if (!nextLevel) {
+    toast.error("You're already at the maximum level!");
+    return state;
+  }
+
+  const skipPrice = SKIP_PRICES_TON[state.level + 1]; // Get the skip price for the next level in TON
+
+  // Check if the player has enough coins
+  if (state.coins < skipPrice) {
+    toast.error(`You need ${skipPrice} TON to skip to ${nextLevel.name}!`);
+    return state;
+  }
+
+  // Simulate payment confirmation (replace this with actual payment logic)
+  const paymentConfirmed = await processPayment(skipPrice);
+  if (!paymentConfirmed) {
+    toast.error("Payment failed. Please try again.");
+    return state;
+  }
+
+  // Deduct the coins and skip the level
+  return {
+    ...state,
+    level: nextLevel.id,
+    totalTaps: nextLevel.requiredTaps,
+    incomeMultiplier: state.incomeMultiplier * ACTIVITY_MULTIPLIERS.LEVEL_UP,
+    baseIncomePerHour: nextLevel.baseIncome,
+    coins: state.coins - skipPrice // Deduct the skip price
+  };
+});
+
+// Simulate payment confirmation with TON wallet
+const processPayment = async (amount: number): Promise<boolean> => {
+  try {
+    // Here you would integrate with the TON wallet
+    toast.loading('Connecting to TON wallet...');
+    
+    // Simulated payment flow (replace this with actual wallet integration)
+    await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate a delay for payment processing
+
+    // Simulate successful payment
+    toast.success(`Payment of ${amount} TON confirmed!`);
+    return true;
+  } catch (error) {
+    console.error('Payment error:', error);
+    return false;
+  }
+};
