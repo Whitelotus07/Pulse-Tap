@@ -41,7 +41,8 @@ export default function LevelCard() {
           <Trophy className="text-yellow-400" />
           <h2 className="text-xl font-bold">Level {level}</h2>
         </div>
-        {nextLevel && (
+        {/* Show the skip button only for levels 0 to 3 */}
+        {level >= 0 && level <= 3 && nextLevel && (
           <button
             onClick={handleSkipLevel}
             className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-semibold
