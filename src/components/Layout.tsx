@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import { Home, ShoppingBag, BarChart2, Trophy, Wallet, BookOpen } from 'lucide-react'; // Import the necessary icons
+import { Home, ShoppingBag, BarChart2, Trophy, Wallet, BookOpen, Video } from 'lucide-react'; // Import the necessary icons
 import { motion } from 'framer-motion';
 
 export default function Layout() {
@@ -10,6 +10,7 @@ export default function Layout() {
     { path: '/game', icon: Home, label: 'Tap', color: 'text-pink-500' },
     { path: '/shop', icon: ShoppingBag, label: 'Shop', color: 'text-purple-500' },
     { path: '/statistics', icon: BarChart2, label: 'Statistics', color: 'text-blue-500' }, // Updated nav item for Statistics
+    { path: '/tasks', icon: Video, label: 'Tasks', color: 'text-yellow-500' }, // New nav item for Tasks
     { path: '/connect-wallet', icon: Wallet, label: 'Connect Wallet', color: 'text-green-500' }, // Existing nav item
     { path: '/levels', icon: BookOpen, label: 'Levels', color: 'text-blue-500' } // New nav item for Levels
   ];
