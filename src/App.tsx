@@ -6,9 +6,10 @@ import Game from './pages/Game';
 import Loading from './pages/Loading';
 import Shop from './pages/Shop';
 import Layout from './components/Layout';
-import ConnectWallet from './pages/ConnectWallet'; // Import the new ConnectWallet page
-import Levels from './pages/Levels'; // Import the new Levels page
-import Statistics from './pages/Statistics'; // Import the new Statistics page
+import ConnectWallet from './pages/ConnectWallet'; // Import the ConnectWallet page
+import Levels from './pages/Levels'; // Import the Levels page
+import Statistics from './pages/Statistics'; // Import the Statistics page
+import Tasks from './pages/Tasks'; // Import the Tasks page
 
 function App() {
   return (
@@ -18,11 +19,12 @@ function App() {
         <Routes>
           <Route path="/" element={<Loading />} />
           <Route element={<Layout />}>
-            <Route path="/connect-wallet" element={<ConnectWallet />} /> {/* New route for Connect Wallet */}
+            <Route path="/connect-wallet" element={<ConnectWallet />} /> {/* Route for Connect Wallet */}
             <Route path="/game" element={<Game />} />
-            <Route path="/levels" element={<Levels />} /> {/* New route for Levels */}
-            <Route path="/statistics" element={<Statistics />} /> {/* New route for Statistics */}
+            <Route path="/levels" element={<Levels />} /> {/* Route for Levels */}
+            <Route path="/statistics" element={<Statistics />} /> {/* Route for Statistics */}
             <Route path="/shop" element={<Shop />} />
+            <Route path="/tasks" element={<Tasks />} /> {/* Route for Tasks */}
           </Route>
         </Routes>
       </BrowserRouter>
