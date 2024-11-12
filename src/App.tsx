@@ -10,6 +10,7 @@ import ConnectWallet from './pages/ConnectWallet'; // Import the ConnectWallet p
 import Levels from './pages/Levels'; // Import the Levels page
 import Statistics from './pages/Statistics'; // Import the Statistics page
 import Tasks from './pages/Tasks'; // Import the Tasks page
+import Referral from './pages/Referral'; // Import the Referral page
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="/statistics" element={<Statistics />} /> {/* Route for Statistics */}
             <Route path="/shop" element={<Shop />} />
             <Route path="/tasks" element={<Tasks />} /> {/* Route for Tasks */}
+            <Route path="/referral" element={<Referral />} /> {/* Route for Referral */}
           </Route>
         </Routes>
       </BrowserRouter>
