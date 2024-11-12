@@ -7,20 +7,18 @@ import {
   DAILY_BONUSES, 
   DAILY_VIDEOS, 
   SOCIAL_TASKS,
-  ACTIVITY_MULTIPLIERS, 
   AUTO_TAP_CONFIG
 } from '../config/gameConfig';
 
 interface GameState {
   coins: number;
   tapPower: number;
-  baseIncomePerHour: number;
   lastDailyBonus: string | null;
   lastTapTime: string | null;
   currentDay: number;
   level: number;
   totalTaps: number;
-  incomeMultiplier: number;
+  referralBonus: number; // Add referral bonus to the state
   dailyVideos: Array<typeof DAILY_VIDEOS[0] & { completed: boolean }>;
   socialTasksCompleted: string[];
   autoTapEndTime: string | null;
@@ -44,19 +42,18 @@ const useGameStore = create<GameState>()(
     (set, get) => ({
       coins: 0,
       tapPower: 1,
-      baseIncomePerHour: 0,
       lastDailyBonus: null,
       lastTapTime: null,
       currentDay: 1,
       level: 0,
       totalTaps: 0,
-      incomeMultiplier: 1,
+      referralBonus: 0, // Initialize referral bonus
       dailyVideos: DAILY_VIDEOS.map(v => ({ ...v, completed: false })),
       socialTasksCompleted: [],
       autoTapEndTime: null,
 
       addCoins: (amount) => set((state) => {
-        const newAmount = amount * state.incomeMultiplier;
+        const newAmount = amount; // No multiplier applied here
         if (newAmount >= 1000) {
           toast.success(`+${Math.floor(newAmount).toLocaleString()} coins!`);
         }
@@ -74,8 +71,6 @@ const useGameStore = create<GameState>()(
 
         let updates: Partial<GameState> = {
           totalTaps: newTotalTaps,
-          incomeMultiplier: state.incomeMultiplier * ACTIVITY_MULTIPLIERS.TAP, // Fixed line
-          baseIncomePerHour: currentLevel.baseIncome
         };
 
         if (nextLevel && newTotalTaps >= nextLevel.requiredTaps) {
@@ -83,8 +78,6 @@ const useGameStore = create<GameState>()(
             ...updates,
             level: nextLevel.id,
             coins: state.coins + nextLevel.bonus,
-            incomeMultiplier: state.incomeMultiplier * ACTIVITY_MULTIPLIERS.LEVEL_UP,
-            baseIncomePerHour: nextLevel.baseIncome
           };
           toast.success(`Level Up! You're now ${nextLevel.name}! 🎉`);
         }
@@ -102,17 +95,7 @@ const useGameStore = create<GameState>()(
         return {
           level: nextLevel.id,
           totalTaps: nextLevel.requiredTaps,
-          incomeMultiplier: state.incomeMultiplier * ACTIVITY_MULTIPLIERS.LEVEL_UP,
-          baseIncomePerHour: nextLevel.baseIncome
-        };
-      }),
-
-      purchaseAutoTap: () => set((state) => {
-        const endTime = new Date();
-        endTime.setHours(endTime.getHours () + AUTO_TAP_CONFIG.durationHours);
-        
-        return {
-          autoTapEndTime: endTime.toISOString()
+          coins: state.coins + nextLevel.bonus // Add level bonus
         };
       }),
 
@@ -174,7 +157,11 @@ const useGameStore = create<GameState>()(
 
       calculateIncomePerHour: () => {
         const state = get();
-        return state.baseIncomePerHour * state.incomeMultiplier;
+        const currentLevel = LEVELS[state.level];
+        const dailyBonus = DAILY_BONUSES[state.currentDay - 1]?.amount || 0; // Get the daily bonus for the current day
+        const totalIncome = (currentLevel ? currentLevel.baseIncome : 0) + dailyBonus + state.referralBonus; // Total income includes daily bonus and referral bonus
+
+        return totalIncome; // Return total income without multipliers
       },
 
       setLastTapTime: (time) => set({ lastTapTime: time }),
