@@ -1,8 +1,6 @@
-// src/components/Layout.tsx
-
 import React from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import { Home, ShoppingBag, BarChart2, Trophy, Wallet } from 'lucide-react'; // Import Wallet icon
+import { Home, ShoppingBag, BarChart2, Trophy, Wallet, BookOpen } from 'lucide-react'; // Import the BookOpen icon
 import { motion } from 'framer-motion';
 
 export default function Layout() {
@@ -13,7 +11,8 @@ export default function Layout() {
     { path: '/shop', icon: ShoppingBag, label: 'Shop', color: 'text-purple-500' },
     { path: '/stats', icon: BarChart2, label: 'Stats', color: 'text-blue-500' },
     { path: '/leaderboard', icon: Trophy, label: 'Ranks', color: 'text-yellow-500' },
-    { path: '/connect-wallet', icon: Wallet, label: 'Connect Wallet', color: 'text-green-500' } // New nav item
+    { path: '/connect-wallet', icon: Wallet, label: 'Connect Wallet', color: 'text-green-500' }, // Existing nav item
+    { path: '/levels', icon: BookOpen, label: 'Levels', color: 'text-blue-500' } // New nav item for Levels
   ];
 
   return (
