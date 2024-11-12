@@ -74,7 +74,7 @@ const useGameStore = create<GameState>()(
 
         let updates: Partial<GameState> = {
           totalTaps: newTotalTaps,
-          incomeMultiplier: state.incomeMultiplier * ACTIVITY _MULTIPLIERS.TAP,
+          incomeMultiplier: state.incomeMultiplier * ACTIVITY_MULTIPLIERS.TAP, // Fixed line
           baseIncomePerHour: currentLevel.baseIncome
         };
 
@@ -109,7 +109,7 @@ const useGameStore = create<GameState>()(
 
       purchaseAutoTap: () => set((state) => {
         const endTime = new Date();
-        endTime.setHours(endTime.getHours() + AUTO_TAP_CONFIG.durationHours);
+        endTime.setHours(endTime.getHours () + AUTO_TAP_CONFIG.durationHours);
         
         return {
           autoTapEndTime: endTime.toISOString()
