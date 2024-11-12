@@ -13,11 +13,19 @@ interface SocialTaskProps {
 }
 
 export default function SocialTask({ id, title, description, reward, url, completed }: SocialTaskProps) {
-  const completeSocialTask = useGameStore((state) => state.completeSocialTask);
+  const { completeSocialTask, checkIfCompleted } = useGameStore();
 
   const handleClick = () => {
+    // Open the URL in a new tab
     window.open(url, '_blank');
-    completeSocialTask(id);
+
+    // Check if the task has been completed by the user
+    if (checkIfCompleted(id)) {
+      completeSocialTask(id, reward); // Complete the task and grant the reward
+    } else {
+      // Optionally, you can show a message if the task is not completed
+      alert("Please complete the task before claiming the reward.");
+    }
   };
 
   return (
