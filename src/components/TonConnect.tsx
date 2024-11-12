@@ -1,39 +1,63 @@
-import React, { useEffect, useState } from 'react';
-import { TonConnectButton } from '@tonconnect/ui-react'; // Import only the TonConnectButton
-import toast from 'react-hot-toast';
+// src/components/TonConnect.tsx
 
-export default function TonConnect() {
-  const [isConnected, setIsConnected] = useState(false); // State to manage connection
+import React, { useState, useEffect } from 'react';
+import { TonConnect, TonConnectUI } from '@tonconnect/sdk';
 
-  // Mock function to simulate checking wallet connection
-  const someConnectionCheckFunction = async () => {
-    return Math.random() > 0.5; // Simulate a connection status
+const tonConnect = new TonConnect({
+  // You can specify options here if needed
+  // e.g., network: 'testnet', etc.
+});
+
+const TonConnectComponent = () => {
+  const [isConnected, setIsConnected] = useState(false);
+  const [walletAddress, setWalletAddress] = useState<string | null>(null);
+
+  const connectWallet = async () => {
+    try {
+      const connection = await tonConnect.connect();
+      if (connection) {
+        setWalletAddress(connection.address);
+        setIsConnected(true);
+      }
+    } catch (error) {
+      console.error('Failed to connect wallet:', error);
+    }
+  };
+
+  const disconnectWallet = () => {
+    tonConnect.disconnect(); // Disconnect from the wallet
+    setWalletAddress(null);
+    setIsConnected(false);
   };
 
   useEffect(() => {
     const checkConnection = async () => {
-      const connected = await someConnectionCheckFunction(); // Check if connected
-      setIsConnected(connected);
-      if (connected) {
-        toast.success('Wallet connected!');
-      } else {
-        toast.error('Wallet disconnected.');
+      const connection = await tonConnect.getActiveConnection();
+      if (connection) {
+        setWalletAddress(connection.address);
+        setIsConnected(true);
       }
     };
 
     checkConnection();
-
-    return () => {
-      // Cleanup logic here if you set up listeners
-    };
   }, []);
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 p-4 bg-white/10 backdrop-blur-lg rounded-lg shadow-lg md:static md:bottom-auto md:right-auto">
-      <TonConnectButton className="w-full sm:w-auto" /> {/* Responsive width */}
-      <div className="mt-2 text-sm text-gray-400 text-right">
-        {isConnected ? 'Wallet connected!' : 'Connect wallet to unlock features'}
-      </div>
+    <div className="mt-4">
+      {isConnected ? (
+        <div>
+          <p className="text-green-500">Connected: {walletAddress}</p>
+          <button onClick={disconnectWallet} className="mt-2 bg-red-500 text-white px-4 py-2 rounded">
+            Disconnect Wallet
+          </button>
+        </div>
+      ) : (
+        <button onClick={connectWallet} className="bg-blue-500 text-white px-4 py-2 rounded">
+          Connect Wallet
+        </button>
+      )}
     </div>
   );
-}
+};
+
+export default TonConnectComponent;
