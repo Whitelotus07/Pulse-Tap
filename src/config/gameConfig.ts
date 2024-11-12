@@ -84,7 +84,7 @@ export const AUTO_TAP_CONFIG = {
 
 // Activity multipliers
 export const ACTIVITY_MULTIPLIERS = {
-  TAP: 1 .0,
+  TAP: 1.0, // Corrected line
   DAILY_BONUS: 1.1,
   VIDEO_WATCH: 1.2,
   SOCIAL_TASK: 1.5
@@ -212,6 +212,5 @@ const processPayment = async (amount: number): Promise<boolean> => {
   } catch (error) {
     console.error('Payment error:', error);
     return false;
-  ```typescript
   }
 };
