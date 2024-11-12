@@ -54,7 +54,7 @@ export const SOCIAL_TASKS = [
   }
 ];
 
-// Daily videos
+// Daily videos ```typescript
 export const DAILY_VIDEOS = [
   {
     id: "video1",
@@ -86,7 +86,7 @@ export const AUTO_TAP_CONFIG = {
 export const ACTIVITY_MULTIPLIERS = {
   TAP: 1.0,
   DAILY_BONUS: 1.1,
-  VIDEO_W ATCH: 1.2,
+  VIDEO_WATCH: 1.2, // Corrected line
   SOCIAL_TASK: 1.5
 };
 
