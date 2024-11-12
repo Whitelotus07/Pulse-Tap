@@ -30,6 +30,7 @@ interface GameState {
   claimDailyBonus: () => void;
   completeVideo: (videoId: string) => void;
   completeSocialTask: (taskId: string) => void;
+  addReferralBonus: (amount: number) => void; // New method to add referral bonus
   calculateIncomePerHour: () => number;
   setLastTapTime: (time: string) => void;
   purchaseAutoTap: () => void;
@@ -152,6 +153,14 @@ const useGameStore = create<GameState>()(
         return {
           socialTasksCompleted: [...state.socialTasksCompleted, taskId],
           coins: state.coins + task.reward
+        };
+      }),
+
+      addReferralBonus: (amount) => set((state) => {
+        toast.success(`Referral bonus: +${amount.toLocaleString()} coins!`);
+        return {
+          referralBonus: state.referralBonus + amount,
+          coins: state.coins + amount
         };
       }),
 
