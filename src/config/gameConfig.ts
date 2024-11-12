@@ -54,7 +54,7 @@ export const SOCIAL_TASKS = [
   }
 ];
 
-// Daily videos ```typescript
+// Daily videos
 export const DAILY_VIDEOS = [
   {
     id: "video1",
@@ -84,11 +84,28 @@ export const AUTO_TAP_CONFIG = {
 
 // Activity multipliers
 export const ACTIVITY_MULTIPLIERS = {
-  TAP: 1.0,
+  TAP: 1 .0,
   DAILY_BONUS: 1.1,
-  VIDEO_WATCH: 1.2, // Corrected line
+  VIDEO_WATCH: 1.2,
   SOCIAL_TASK: 1.5
 };
+
+// Referral bonus configuration
+export const REFERRAL_BONUS = {
+  bonusAmount: 500, // Amount of coins for each successful referral
+  requiredReferrals: 5, // Number of referrals needed to claim a bonus
+};
+
+// Define referral tasks
+export const REFERRAL_TASKS = [
+  {
+    id: "refer_friend",
+    title: "Refer a Friend",
+    description: "Invite a friend to join the game and earn rewards!",
+    reward: REFERRAL_BONUS.bonusAmount,
+    completed: false,
+  }
+];
 
 // Game state interface
 export interface GameState {
@@ -97,6 +114,8 @@ export interface GameState {
   baseIncomePerHour: number;
   coins: number; // Added coins to the GameState
   level: number; // Added level to the GameState
+  referralsCount: number; // Track the number of referrals
+  referralTasksCompleted: string[]; // Track completed referral tasks
 }
 
 // Initial game state
@@ -105,7 +124,9 @@ export const initialState: GameState = {
   incomeMultiplier: 1,
   baseIncomePerHour: 0,
   coins: 0, // Initialize coins
-  level: 0 // Initialize level
+  level: 0, // Initialize level
+  referralsCount: 0, // Initialize referrals count
+  referralTasksCompleted: [], // Initialize completed referral tasks
 };
 
 // Function to update game state
@@ -118,6 +139,26 @@ export function updateGameState(state: GameState, newTotalTaps: number, currentL
 
   return { ...state, ...updates };
 }
+
+// Function to complete a referral task
+export const completeReferralTask = (state: GameState): GameState => {
+  if (state.referralTasksCompleted.includes("refer_friend")) {
+    toast.error("Referral task already completed!");
+    return state;
+  }
+
+  const newCount = state.referralsCount + 1;
+  const reward = REFERRAL_BONUS.bonusAmount;
+
+  toast.success(`Referral task completed: +${reward.toLocaleString()} coins!`);
+
+  return {
+    ...state,
+    referralsCount: newCount,
+    referralTasksCompleted: [...state.referralTasksCompleted, "refer_friend"],
+    coins: state.coins + reward,
+  };
+};
 
 // Skip prices for levels 1 to 3 in TON
 export const SKIP_PRICES_TON = [0, 1, 2, 3]; // Prices for levels 0, 1, 2, and 3 respectively in TON
@@ -171,5 +212,6 @@ const processPayment = async (amount: number): Promise<boolean> => {
   } catch (error) {
     console.error('Payment error:', error);
     return false;
+  ```typescript
   }
 };
