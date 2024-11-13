@@ -20,12 +20,8 @@ export default function AutoTapCard() {
 
   const handlePurchase = async () => {
     try {
-      // Here we would integrate with TON wallet
       toast.loading('Connecting to TON wallet...');
-      // Simulated TON payment flow
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      purchaseAutoTap();
+      await purchaseAutoTap(); // Call the purchase function from the game store
       toast.success('Auto Tap activated! 🚀');
     } catch (error) {
       toast.error('Payment failed. Please try again.');
