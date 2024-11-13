@@ -8,7 +8,7 @@ export const LEVELS = [
   { id: 5, name: "Grand Master", requiredTaps: 10000000, bonus: 10000000, icon: "👑", baseIncome: 100000 },
   { id: 6, name: "Legend", requiredTaps: 100000000, bonus: 100000000, icon: "🏆", baseIncome: 1000000 },
   { id: 7, name: "Mythical", requiredTaps: 1000000000, bonus: 1000000000, icon: "🌈", baseIncome: 10000000 },
-  { id: 8, name: "Divine", requiredTaps: 5000000000, bonus: 5000000000, icon: "⭐", baseIncome: 1000000000 },
+  { id: 8, name: "Divine", requiredTaps: 50000000000, bonus: 50000000000, icon: "⭐", baseIncome: 1000000000 },
   { id: 9, name: "Immortal", requiredTaps: 90000000000, bonus: 90000000000, icon: "🌌", baseIncome: 10000000000 }
 ];
 
