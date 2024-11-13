@@ -35,6 +35,12 @@ const TonConnectComponent = () => {
     const checkConnection = async () => {
       // Implement logic to check for an existing wallet connection
       // This might involve checking local storage or a similar mechanism
+      const storedAddress = localStorage.getItem('walletAddress');
+      if (storedAddress) {
+        setLocalWalletAddress(storedAddress);
+        setWalletAddress(storedAddress); // Update Zustand store
+        setIsConnected(true); // Update Zustand store
+      }
     };
 
     checkConnection();
