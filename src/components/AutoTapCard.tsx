@@ -5,7 +5,7 @@ import { useGameStore } from '../store/gameStore';
 import { AUTO_TAP_CONFIG } from '../config/gameConfig';
 import toast from 'react-hot-toast';
 
-const AUTO_TAP_PRICE = 5; // $5 in TON
+const AUTO_TAP_PRICE = 1; // $1 in TON
 
 export default function AutoTapCard() {
   const { autoTapEndTime, purchaseAutoTap } = useGameStore();
