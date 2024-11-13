@@ -1,50 +1,48 @@
-// src/components/TonConnect.tsx
-
 import React, { useState, useEffect } from 'react';
-import { TonConnect, TonConnectUI } from '@tonconnect/sdk';
+import TonWeb from 'tonweb';
+import { useGameStore } from '../store/gameStore'; // Import the game store
 
-const tonConnect = new TonConnect({
-  // You can specify options here if needed
-  // e.g., network: 'testnet', etc.
-});
+const tonweb = new TonWeb(); // Initialize TonWeb
 
 const TonConnectComponent = () => {
-  const [isConnected, setIsConnected] = useState(false);
-  const [walletAddress, setWalletAddress] = useState<string | null>(null);
+  const { setWalletAddress, setIsConnected } = useGameStore(); // Use Zustand store
+  const [walletAddress, setLocalWalletAddress] = useState<string | null>(null);
 
   const connectWallet = async () => {
     try {
-      const connection = await tonConnect.connect();
-      if (connection) {
-        setWalletAddress(connection.address);
-        setIsConnected(true);
-      }
+      // Request to connect to the TON wallet
+      const wallet = tonweb.wallet.create({ publicKey: await tonweb.utils.getPublicKey() });
+      const address = wallet.address.toString();
+
+      // Here you would typically use a method to request the user's wallet to connect
+      // For example, using a browser extension or a wallet provider
+      setLocalWalletAddress(address);
+      setWalletAddress(address); // Update Zustand store
+      setIsConnected(true); // Update Zustand store
     } catch (error) {
       console.error('Failed to connect wallet:', error);
     }
   };
 
   const disconnectWallet = () => {
-    tonConnect.disconnect(); // Disconnect from the wallet
-    setWalletAddress(null);
-    setIsConnected(false);
+    setLocalWalletAddress(null);
+    setWalletAddress(null); // Update Zustand store
+    setIsConnected(false); // Update Zustand store
   };
 
   useEffect(() => {
+    // This can be used to check if the user is already connected
     const checkConnection = async () => {
-      const connection = await tonConnect.getActiveConnection();
-      if (connection) {
-        setWalletAddress(connection.address);
-        setIsConnected(true);
-      }
+      // Implement logic to check for an existing wallet connection
+      // This might involve checking local storage or a similar mechanism
     };
 
     checkConnection();
-  }, []);
+  }, [setWalletAddress, setIsConnected]);
 
   return (
     <div className="mt-4">
-      {isConnected ? (
+      {walletAddress ? (
         <div>
           <p className="text-green-500">Connected: {walletAddress}</p>
           <button onClick={disconnectWallet} className="mt-2 bg-red-500 text-white px-4 py-2 rounded">
