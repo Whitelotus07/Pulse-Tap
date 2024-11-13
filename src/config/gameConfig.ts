@@ -93,7 +93,7 @@ export const ACTIVITY_MULTIPLIERS = {
 // Referral bonus configuration
 export const REFERRAL_BONUS = {
   bonusAmount: 500, // Amount of coins for each successful referral
-  requiredReferrals: 5, // Number of referrals needed to claim a bonus
+  requiredReferrals: 1, // Number of referrals needed to claim a bonus
 };
 
 // Define referral tasks
