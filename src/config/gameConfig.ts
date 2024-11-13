@@ -84,7 +84,7 @@ export const AUTO_TAP_CONFIG = {
 
 // Activity multipliers
 export const ACTIVITY_MULTIPLIERS = {
-  TAP: 1.0, // Corrected line
+  TAP: 1.0,
   DAILY_BONUS: 1.1,
   VIDEO_WATCH: 1.2,
   SOCIAL_TASK: 1.5
@@ -92,8 +92,8 @@ export const ACTIVITY_MULTIPLIERS = {
 
 // Referral bonus configuration
 export const REFERRAL_BONUS = {
-  bonusAmount: 500, // Amount of coins for each successful referral
-  requiredReferrals: 1, // Number of referrals needed to claim a bonus
+  bonusAmount: 500,
+  requiredReferrals: 1,
 };
 
 // Define referral tasks
@@ -112,10 +112,10 @@ export interface GameState {
   totalTaps: number;
   incomeMultiplier: number;
   baseIncomePerHour: number;
-  coins: number; // Added coins to the GameState
-  level: number; // Added level to the GameState
-  referralsCount: number; // Track the number of referrals
-  referralTasksCompleted: string[]; // Track completed referral tasks
+  coins: number;
+  level: number;
+  referralsCount: number;
+  referralTasksCompleted: string[];
 }
 
 // Initial game state
@@ -123,10 +123,10 @@ export const initialState: GameState = {
   totalTaps: 0,
   incomeMultiplier: 1,
   baseIncomePerHour: 0,
-  coins: 0, // Initialize coins
-  level: 0, // Initialize level
-  referralsCount: 0, // Initialize referrals count
-  referralTasksCompleted: [], // Initialize completed referral tasks
+  coins: 0,
+  level: 0,
+  referralsCount: 0,
+  referralTasksCompleted: [],
 };
 
 // Function to update game state
@@ -161,7 +161,7 @@ export const completeReferralTask = (state: GameState): GameState => {
 };
 
 // Skip prices for levels 1 to 3 in TON
-export const SKIP_PRICES_TON = [0, 1, 2, 3]; // Prices for levels 0, 1, 2, and 3 respectively in TON
+export const SKIP_PRICES_TON = [0, 1, 2, 3];
 
 // Function to skip levels
 export const skipLevel = () => set(async (state: GameState) => {
@@ -171,46 +171,38 @@ export const skipLevel = () => set(async (state: GameState) => {
     return state;
   }
 
-  const skipPrice = SKIP_PRICES_TON[state.level + 1]; // Get the skip price for the next level in TON
+  const skipPrice = SKIP_PRICES_TON[state.level + 1];
 
-  // Check if the player has enough coins
   if (state.coins < skipPrice) {
     toast.error(`You need ${skipPrice} TON to skip to ${nextLevel.name}!`);
     return state;
   }
 
-  // Simulate payment confirmation (replace this with actual payment logic)
   const paymentConfirmed = await processPayment(skipPrice);
   if (!paymentConfirmed) {
     toast.error("Payment failed. Please try again.");
     return state;
   }
 
-  // Deduct the coins and skip the level
   return {
     ...state,
     level: nextLevel.id,
     totalTaps: nextLevel.requiredTaps,
     incomeMultiplier: state.incomeMultiplier * ACTIVITY_MULTIPLIERS.LEVEL_UP,
     baseIncomePerHour: nextLevel.baseIncome,
-    coins: state.coins - skipPrice // Deduct the skip price
+    coins: state.coins - skipPrice
   };
 });
 
 // Simulate payment confirmation with TON wallet
 const processPayment = async (amount: number): Promise<boolean> => {
   try {
-    // Here you would integrate with the TON wallet
     toast.loading('Connecting to TON wallet...');
-    
-    // Simulated payment flow (replace this with actual wallet integration)
-    await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate a delay for payment processing
-
-    // Simulate successful payment
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     toast.success(`Payment of ${amount} TON confirmed!`);
     return true;
   } catch (error) {
     console.error('Payment error:', error);
     return false;
-  }
+ }
 };
