@@ -6,11 +6,11 @@ import Game from './pages/Game';
 import Loading from './pages/Loading';
 import Shop from './pages/Shop';
 import Layout from './components/Layout';
-import ConnectWallet from './pages/ConnectWallet'; // Import the ConnectWallet page
-import Levels from './pages/Levels'; // Import the Levels page
-import Statistics from './pages/Statistics'; // Import the Statistics page
-import Tasks from './pages/Tasks'; // Import the Tasks page
-import Referral from './pages/Referral'; // Import the Referral page
+import ConnectWallet from './pages/ConnectWallet';
+import Levels from './pages/Levels';
+import Statistics from './pages/Statistics';
+import Tasks from './pages/Tasks';
+import Referral from './pages/Referral';
 
 function App() {
   return (
@@ -20,13 +20,13 @@ function App() {
         <Routes>
           <Route path="/" element={<Loading />} />
           <Route element={<Layout />}>
-            <Route path="/connect-wallet" element={<ConnectWallet />} /> {/* Route for Connect Wallet */}
+            <Route path="/connect-wallet" element={<ConnectWallet />} />
             <Route path="/game" element={<Game />} />
-            <Route path="/levels" element={<Levels />} /> {/* Route for Levels */}
-            <Route path="/statistics" element={<Statistics />} /> {/* Route for Statistics */}
+            <Route path="/levels" element={<Levels />} />
+            <Route path="/statistics" element={<Statistics />} />
             <Route path="/shop" element={<Shop />} />
-            <Route path="/tasks" element={<Tasks />} /> {/* Route for Tasks */}
-            <Route path="/referral" element={<Referral />} /> {/* Route for Referral */}
+            <Route path="/tasks" element={<Tasks />} />
+            <Route path="/referral" element={<Referral />} />
           </Route>
         </Routes>
       </BrowserRouter>
