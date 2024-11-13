@@ -1,3 +1,5 @@
+// src/store/gameStore.ts
+
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { addDays, isAfter, startOfDay, differenceInHours } from 'date-fns';
@@ -9,6 +11,7 @@ import {
   SOCIAL_TASKS,
   AUTO_TAP_CONFIG
 } from '../config/gameConfig';
+import { useWallet } from '../context/WalletContext'; // Import the wallet context
 
 interface GameState {
   coins: number;
@@ -33,7 +36,7 @@ interface GameState {
   addReferralBonus: (amount: number) => void; // New method to add referral bonus
   calculateIncomePerHour: () => number;
   setLastTapTime: (time: string) => void;
-  purchaseAutoTap: () => void;
+  purchaseAutoTap: () => Promise<void>; // Updated to return a Promise
   skipLevel: () => void;
   checkPulseReminder: () => void;
 }
@@ -187,6 +190,28 @@ const useGameStore = create<GameState>()(
             });
           }
         }
+      },
+
+      purchaseAutoTap: async () => {
+        const { isConnected, walletAddress } = useWallet(); // Access wallet context
+        if (!isConnected) {
+          toast.error("Please connect your wallet to purchase!");
+          return;
+        }
+
+        // Logic to handle auto-tap purchase
+        const cost = AUTO_TAP_CONFIG.cost; // Assume cost is defined in your config
+        if (get().coins < cost) {
+          toast.error("Not enough coins to purchase auto-tap!");
+          return;
+        }
+
+        // Deduct coins and handle purchase logic
+        set((state) => ({
+          coins: state.coins - cost,
+          autoTapEndTime: new Date(Date.now() + AUTO_TAP_CONFIG.duration).toISOString() // Set end time for auto-tap
+        }));
+        toast.success("Auto-tap purchased successfully!");
       }
     }),
     {
