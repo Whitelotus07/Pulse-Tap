@@ -25,7 +25,7 @@ export default function Layout() {
         className="fixed bottom-0 left-0 right-0 glass-effect border-t border-white/20"
       >
         <div className="container mx-auto px-4">
-          <div className="flex flex-row justify-around py-2 space-x-4 md:space-x-8"> {/* Add spacing between tabs */}
+          <div className="flex flex-row justify-around py-2 space-x-4 md:space-x-8"> {/* Arrange items horizontally */}
             {navItems.map(({ path, icon: Icon, label, color }) => (
               <Link
                 key={path}
@@ -41,4 +41,4 @@ export default function Layout() {
       </motion.nav>
     </div>
   );
-}
+        }
