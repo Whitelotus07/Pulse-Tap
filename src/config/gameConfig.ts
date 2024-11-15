@@ -1,3 +1,5 @@
+// src/config/gameConfig.ts
+
 import TonWeb from 'tonweb'; // Import the TON Web library
 import { toast } from 'react-hot-toast'; // Ensure you have toast for notifications
 
@@ -51,7 +53,7 @@ export const SOCIAL_TASKS = [
   {
     id: "discord",
     title: "Join Discord Server",
-    description: "Join our community Discord server",
+    description : "Join our community Discord server",
     reward: 200,
     url: "https://discord.gg/pulsetap"
   }
@@ -74,7 +76,7 @@ export const DAILY_VIDEOS = [
   {
     id: "video3",
     title: "Community Showcase",
-    url: "https://youtube.com/watch?v= example3",
+    url: "https://youtube.com/watch?v=example3",
     reward: 200,
   }
 ];
@@ -203,7 +205,7 @@ export function updateGameState(state: GameState, newTotalTaps: number, currentL
 // Function to complete a referral task
 export const completeReferralTask = (state: GameState): GameState => {
   if (state.referralTasksCompleted.includes("refer_friend")) {
-    toast.error("Referral task already completed!");
+    toast .error("Referral task already completed!");
     return state;
   }
 
@@ -224,7 +226,7 @@ export const completeReferralTask = (state: GameState): GameState => {
 export const SKIP_PRICES_TON = [0, 1, 2, 3];
 
 // Function to skip levels
-export const skipLevel = async (state : GameState): Promise<GameState> => {
+export const skipLevel = async (state: GameState): Promise<GameState> => {
   const nextLevel = LEVELS[state.level + 1];
   if (!nextLevel) {
     toast.error("You're already at the maximum level!");
