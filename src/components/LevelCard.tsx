@@ -22,9 +22,9 @@ export default function LevelCard() {
     const price = TON_PRICES[level];
     
     try {
-      toast.loading('Connecting to TON wallet...');
-      // Call the skipLevel function which should handle the wallet connection and payment
-      await skipLevel(price); // Pass the price to the skipLevel function
+      toast.loading('Processing payment...');
+      // Call the skipLevel function, which now handles the wallet connection and payment
+      await skipLevel(); // No need to pass price as it's handled in the store
       toast.success(`Skipped to ${nextLevel.name}! 🚀`);
     } catch (error) {
       toast.error('Payment failed. Please try again.');
