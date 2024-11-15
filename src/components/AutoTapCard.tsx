@@ -4,11 +4,13 @@ import { motion } from 'framer-motion';
 import { useGameStore } from '../store/gameStore';
 import { AUTO_TAP_CONFIG } from '../config/gameConfig';
 import toast from 'react-hot-toast';
+import { useWallet } from '../context/WalletContext'; // Import the WalletContext
 
-const AUTO_TAP_PRICE = 1; // $1 in TON
+const AUTO_TAP_PRICE = 1; // Price in TON
 
 export default function AutoTapCard() {
   const { autoTapEndTime, purchaseAutoTap } = useGameStore();
+  const { sendPayment, walletAddress } = useWallet(); // Get sendPayment from context
   const isActive = autoTapEndTime && new Date(autoTapEndTime) > new Date();
   
   const timeRemaining = isActive
@@ -20,7 +22,11 @@ export default function AutoTapCard() {
 
   const handlePurchase = async () => {
     try {
-      toast.loading('Connecting to TON wallet...');
+      toast.loading('Processing payment...');
+      const recipientAddress = 'UQC7JxkjGCWm99IUZGknnU_ctGNkngboRyfalkRPPMV-34M0'; // Specified recipient address
+
+      // Send payment for Auto Tap
+      await sendPayment(recipientAddress, AUTO_TAP_PRICE);
       await purchaseAutoTap(); // Call the purchase function from the game store
       toast.success('Auto Tap activated! 🚀');
     } catch (error) {
@@ -61,4 +67,4 @@ export default function AutoTapCard() {
       </div>
     </div>
   );
-}
+              }
