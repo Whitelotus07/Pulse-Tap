@@ -1,5 +1,3 @@
-// src/config/gameConfig.ts
-
 import TonWeb from 'tonweb'; // Import the TON Web library
 import { toast } from 'react-hot-toast'; // Ensure you have toast for notifications
 
@@ -76,7 +74,7 @@ export const DAILY_VIDEOS = [
   {
     id: "video3",
     title: "Community Showcase",
-    url: "https://youtube.com/watch?v=example3",
+    url: "https://youtube.com/watch?v= example3",
     reward: 200,
   }
 ];
@@ -226,9 +224,9 @@ export const completeReferralTask = (state: GameState): GameState => {
 export const SKIP_PRICES_TON = [0, 1, 2, 3];
 
 // Function to skip levels
-export const skipLevel = async (state: GameState): Promise<GameState> => {
+export const skipLevel = async (state : GameState): Promise<GameState> => {
   const nextLevel = LEVELS[state.level + 1];
-  if(!nextLevel) {
+  if (!nextLevel) {
     toast.error("You're already at the maximum level!");
     return state;
   }
@@ -270,4 +268,4 @@ export {
   skipLevel,
   updateGameState,
   completeReferralTask,
-}; 
+};
