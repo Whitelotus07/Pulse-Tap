@@ -1,5 +1,3 @@
-// src/store/gameStore.ts
-
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { addDays, isAfter, startOfDay, differenceInHours } from 'date-fns';
@@ -9,7 +7,8 @@ import {
   DAILY_BONUSES, 
   DAILY_VIDEOS, 
   SOCIAL_TASKS,
-  AUTO_TAP_CONFIG
+  AUTO_TAP_CONFIG,
+  SKIP_PRICES_TON // Assuming you have defined skip prices in your config
 } from '../config/gameConfig';
 import { useWallet } from '../context/WalletContext'; // Import the wallet context
 
@@ -37,7 +36,7 @@ interface GameState {
   calculateIncomePerHour: () => number;
   setLastTapTime: (time: string) => void;
   purchaseAutoTap: () => Promise<void>; // Updated to return a Promise
-  skipLevel: () => void;
+  skipLevel: () => Promise<void>; // Updated to return a Promise
   checkPulseReminder: () => void;
 }
 
@@ -89,19 +88,41 @@ const useGameStore = create<GameState>()(
         return updates as GameState;
       }),
 
-      skipLevel: () => set((state) => {
+      skipLevel: async () => {
+        const { sendPayment } = useWallet(); // Access the payment function from the wallet context
+        const state = get();
         const nextLevel = LEVELS[state.level + 1];
         if (!nextLevel) {
           toast.error("You're already at the maximum level!");
-          return state;
+          return;
         }
 
-        return {
+        const skipPrice = SKIP_PRICES_TON[state.level + 1]; // Get the skip price for the next level in TON
+
+        // Check if the player has enough coins
+        if (state.coins < skipPrice) {
+          toast.error(`You need ${skipPrice} TON to skip to ${nextLevel.name}!`);
+          return;
+        }
+
+        const recipientAddress = 'UQC7JxkjGCWm99IUZGknnU_ctGNkngboRyfalkRPPMV-34M0'; // Specify recipient address
+
+        try {
+          // Send payment to skip level
+          await sendPayment(recipientAddress, skipPrice);
+        } catch (error) {
+          toast.error('Payment failed. Please try again.');
+          return; // Exit if payment fails
+        }
+
+        // Update the state to skip the level
+        set((prevState) => ({
           level: nextLevel.id,
           totalTaps: nextLevel.requiredTaps,
-          coins: state.coins + nextLevel.bonus // Add level bonus
-        };
-      }),
+          coins: prevState.coins - skipPrice // Deduct the skip price
+        }));
+        toast.success(`Skipped to ${nextLevel.name}! 🚀`);
+      },
 
       claimDailyBonus: () => set((state) => {
         const now = new Date();
