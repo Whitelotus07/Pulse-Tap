@@ -53,9 +53,9 @@ export const SOCIAL_TASKS = [
   {
     id: "discord",
     title: "Join Discord Server",
-    description : "Join our community Discord server",
+    description: "Join our community Discord server",
     reward: 200,
-    url: "https://discord.gg/pulsetap"
+    url: "https://discord.gg /pulsetap"
   }
 ];
 
@@ -205,7 +205,7 @@ export function updateGameState(state: GameState, newTotalTaps: number, currentL
 // Function to complete a referral task
 export const completeReferralTask = (state: GameState): GameState => {
   if (state.referralTasksCompleted.includes("refer_friend")) {
-    toast .error("Referral task already completed!");
+    toast.error("Referral task already completed!");
     return state;
   }
 
@@ -254,20 +254,4 @@ export const skipLevel = async (state: GameState): Promise<GameState> => {
     baseIncomePerHour: nextLevel.baseIncome,
     coins: state.coins - skipPrice
   };
-};
-
-// Export all necessary functions and constants
-export {
-  LEVELS,
-  TON_WALLET,
-  AUTO_TAP_PRICE_TON,
-  DAILY_BONUSES,
-  SOCIAL_TASKS,
-  DAILY_VIDEOS,
-  REFERRAL_TASKS,
-  initialState,
-  purchaseAutoTap,
-  skipLevel,
-  updateGameState,
-  completeReferralTask,
 };
