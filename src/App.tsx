@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { TonConnectUIProvider } from '@tonconnect/ui-react';
 import TonWeb from 'tonweb'; // Import tonweb
+
+// Importing pages and components
 import Game from './pages/Game';
 import Loading from './pages/Loading';
 import Shop from './pages/Shop';
@@ -18,16 +20,22 @@ const manifestUrl = process.env.REACT_APP_TON_MANIFEST_URL || "https://ton-conne
 
 function App() {
   const [tonWeb, setTonWeb] = useState(null);
+  const [loading, setLoading] = useState(true); // Loading state
 
   useEffect(() => {
     // Initialize TonWeb
     const initializeTonWeb = async () => {
       const tonweb = new TonWeb(); // Initialize tonweb instance
       setTonWeb(tonweb);
+      setLoading(false); // Set loading to false once initialized
     };
 
     initializeTonWeb();
   }, []);
+
+  if (loading) {
+    return <Loading />; // Show loading component while tonWeb is being initialized
+  }
 
   return (
     <TonConnectUIProvider manifestUrl={manifestUrl}>
