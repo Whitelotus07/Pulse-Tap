@@ -94,7 +94,7 @@ const useGameStore = create<GameState>()(
           incomeMultiplier: state.incomeMultiplier * ACTIVITY_MULTIPLIERS.LEVEL_UP,
           baseIncomePerHour: nextLevel.baseIncome
         };
-        toast.success(`Level Up! You're now ${next Level.name}! 🎉`);
+        toast.success(`Level Up! You're now ${nextLevel.name}! 🎉`);
       }
 
       set(updates as GameState);
